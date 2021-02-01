@@ -106,10 +106,11 @@
       "url": "https://packages.unity.com"
     },
     "me.yiou.monopoly": {
-      "version": "file:/Users/yiouchen/dev/MonopolyProto/Assets/MonopolyProto",
+      "version": "https://github.com/yiochen/MonopolyProto.git#upm",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "1e2ceccf32c5b3804624103a897b99ac372c3a70"
     },
     "nuget.castle-core": {
       "version": "1.0.1",
