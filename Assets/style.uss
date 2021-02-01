@@ -1,0 +1,76 @@
+:root {
+    --text-color-on-light: rgb(114, 84, 183);
+    --text-color-on-dark: rgb(110, 81, 189);
+    --background-dark: rgb(162, 131, 255);
+    --background-light: white;
+    --dialog-width: 300px;
+    --rounded-corner-radius: 15px;
+    --font: url('/Assets/Fonts/SukuriburuBySoultyRagevin-Regular.ttf');
+}
+
+Label {
+    -unity-font: var(--font);
+}
+
+Button {
+    -unity-font: var(--font);
+}
+
+TextInput {
+    -unity-font: var(--font);
+}
+
+.unity-base-field > .unity-base-field__input {
+    border-width: 0;
+}
+
+Button {
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+}
+
+.dark-button {
+    background-color: var(--background-dark);
+    color: var(--text-color-on-dark);
+}
+
+.dialog-end-button {
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    justify-content: center;
+    -unity-text-align: middle-center;
+}
+
+.dialog-title {
+    font-size: 40px;
+    color: var(--text-color-on-light);
+    align-items: flex-start;
+}
+
+.dialog-container {
+    width: var(--dialog-width);
+    background-color: var(--background-light);
+    align-items: center;
+    overflow: hidden;
+}
+
+.rounded-corner {
+    border-radius: var(--rounded-corner-radius);
+}
+
+.dialog-input {
+    background-color: rgb(162, 126, 195);
+    margin: 0;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+.dialog-input > .unity-base-field__input {
+    background-color: rgb(162, 126, 195);
+    color: rgb(109, 47, 173);
+    border-width: 0;
+    padding: 5px;
+}

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/style.uss" />
+    <ui:VisualElement name="container" style="left: auto; top: auto; position: relative; width: 100%; bottom: auto; height: 100%; align-items: center; justify-content: center; background-color: rgb(51, 35, 87);">
+        <ui:VisualElement name="login_dialog" class="dialog-container rounded-corner" style="overflow: hidden;">
+            <ui:VisualElement name="upper_container" style="width: 100%; padding-top: 18px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; align-items: stretch;">
+                <ui:Label text="JOIN AS GUEST" display-tooltip-when-elided="true" class="dialog-title" style="-unity-text-align: upper-center; margin-bottom: 20px;" />
+                <ui:TextField picking-mode="Ignore" value="player" text="player" tooltip="username" name="username_field" class="dialog-input" />
+            </ui:VisualElement>
+            <ui:Button text="LOGIN" display-tooltip-when-elided="true" name="login_button" class="dialog-end-button dark-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
