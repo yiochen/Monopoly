@@ -12,8 +12,18 @@ using System;
 
 namespace Prisel.Common
 {
-    public class WebSocketClient : Singleton<WebSocketClient>
+    public class WebSocketClient
     {
+        private static readonly System.Lazy<WebSocketClient> LazyInstance =
+        new System.Lazy<WebSocketClient>(CreateSingleton);
+
+        public static WebSocketClient Instance => LazyInstance.Value;
+
+        private static WebSocketClient CreateSingleton()
+        {
+            return new WebSocketClient();
+        }
+
         public delegate void OnEmit(Packet packet);
         public OnEmit OnEmitCallback;
 

@@ -23,7 +23,6 @@ namespace Prisel.Common {
 
         public void AddResponse(Packet response)
         {
-            Debug.Log("Received response " + response);
             if (Requests.ContainsKey(response.RequestId))
             {
                 var task = Requests[response.RequestId];

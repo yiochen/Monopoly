@@ -2,6 +2,8 @@
     --text-color-on-light: rgb(114, 84, 183);
     --text-color-on-dark: rgb(110, 81, 189);
     --background-dark: rgb(162, 131, 255);
+    --background-dark-hover: rgb(187, 166, 249);
+    --background-dark-active: rgb(121, 86, 225);
     --background-light: white;
     --dialog-width: 300px;
     --rounded-corner-radius: 15px;
@@ -34,6 +36,14 @@ Button {
 .dark-button {
     background-color: var(--background-dark);
     color: var(--text-color-on-dark);
+}
+
+.dark-button:hover {
+    background-color: var(--background-dark-hover);
+}
+
+.dark-button:active {
+    background-color: var(--background-dark-active);
 }
 
 .dialog-end-button {
@@ -73,4 +83,44 @@ Button {
     color: rgb(109, 47, 173);
     border-width: 0;
     padding: 5px;
+}
+
+.dialog-field-container {
+    width: 100%;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.dialog-field-container > * {
+    margin-bottom: 10px;
+}
+
+.screen-container {
+    background-color: rgb(75, 70, 142);
+    width: 100%;
+    height: 100%;
+}
+
+.screen-body {
+    width: 100%;
+    flex-grow: 1;
+    background-color: rgb(180, 159, 159);
+}
+
+.screen-header {
+    width: 100%;
+    height: 50px;
+}
+
+.dialog-background {
+    left: auto;
+    top: auto;
+    position: relative;
+    width: 100%;
+    bottom: auto;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.38);
 }
