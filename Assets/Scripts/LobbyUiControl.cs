@@ -3,11 +3,9 @@ using UnityEngine.UIElements;
 using System;
 using Prisel.Common;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
-
-
-
-public class LobbyScene : MonoBehaviour
+public class LobbyUiControl : MonoBehaviour
 {
     // Start is called before the first frame update
     async void Start()
@@ -44,6 +42,7 @@ public class LobbyScene : MonoBehaviour
             clientState.RoomId = response.Payload.CreateRoomResponse.Room.Id;
             clientState.RoomName = response.Payload.CreateRoomResponse.Room.Name;
             Debug.Log($"Successfully create room with roomname {clientState.RoomName}, id {clientState.RoomId}");
+            SceneManager.LoadScene("room", LoadSceneMode.Single);
         }
     }
 

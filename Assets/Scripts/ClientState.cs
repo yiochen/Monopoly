@@ -12,5 +12,19 @@ public class ClientState
     public string GamePlayerId { get; set; } = "";
 
     public bool GameStarted { get; set; } = false;
+
+    public void ClearRoomState()
+    {
+        ClearGameState();
+        RoomName = "";
+        RoomId = "";
+
+    }
+
+    public void ClearGameState()
+    {
+        GamePlayerId = "";
+        GameStarted = false;
+    }
 }
 

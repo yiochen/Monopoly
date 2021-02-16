@@ -5,7 +5,7 @@ using Prisel.Common;
 using System.Threading.Tasks;
 using System;
 
-public class LoginScene : MonoBehaviour
+public class LoginUiControl : MonoBehaviour
 {
 
     private void OnEnable()
@@ -30,7 +30,8 @@ public class LoginScene : MonoBehaviour
         if (String.IsNullOrEmpty(username))
         {
             Debug.Log("Cannot login with empty username");
-        } else
+        }
+        else
         {
             var client = WebSocketClient.Instance;
             var response = await client.Login(username);
