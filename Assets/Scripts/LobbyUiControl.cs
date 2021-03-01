@@ -36,9 +36,9 @@ public class LobbyUiControl : MonoBehaviour
         }
         else
         {
-            var client = WebSocketClient.Instance;
+            var client = PriselClient.Instance;
             var response = await client.CreateRoom(roomname);
-            ClientState clientState = client.GetState<ClientState>() ?? new ClientState();
+            ClientState clientState = client.State();
             clientState.RoomId = response.Payload.CreateRoomResponse.Room.Id;
             clientState.RoomName = response.Payload.CreateRoomResponse.Room.Name;
             Debug.Log($"Successfully create room with roomname {clientState.RoomName}, id {clientState.RoomId}");

@@ -19,9 +19,6 @@ public class RoomUiControl : MonoBehaviour
     private PlayerListModel playerListModel;
 
     private VisualTreeAsset playerListItemAsset;
-
-    private List<string> testIdList = new List<string>();
-
     private void OnEnable()
     {
         uiRoot = GetComponent<UIDocument>().rootVisualElement;
@@ -33,17 +30,18 @@ public class RoomUiControl : MonoBehaviour
 
         playerListItemAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/PlayerInfoItem.uxml");
 
-        uiRoot.Q<Button>("leave-room-button").RegisterCallback<ClickEvent>(async e => await Leave());
+        var leaveRoomButton = uiRoot.Q<Button>("leave-room-button");
+        leaveRoomButton.RegisterCallback<ClickEvent>(async e => await Leave());
+        // startButton.RegisterCallback<ClickEvent>(e => playerList.Refresh());
     }
 
     private async Task Leave()
     {
-        WebSocketClient client = WebSocketClient.Instance;
+        PriselClient client = PriselClient.Instance;
         var leaveResponse = await client.Leave();
         if (leaveResponse.IsStatusOk())
         {
-            var clientState = client.GetState<ClientState>();
-            clientState.ClearRoomState();
+            client.State().ClearRoomState();
             SceneManager.LoadScene("lobby", LoadSceneMode.Single);
         }
         else
@@ -54,34 +52,27 @@ public class RoomUiControl : MonoBehaviour
 
     async void Start()
     {
+        Debug.Log("Room scene started");
         if (Application.isEditor && Application.isPlaying)
         {
             await TestLoginFlow.AttemptCreateRoom();
         }
-        WebSocketClient client = WebSocketClient.Instance;
-        var clientState = client.GetState<ClientState>();
+        PriselClient client = PriselClient.Instance;
+        var clientState = client.State();
         roomNameLabel.text = clientState.RoomName;
         roomIdLabel.text = clientState.RoomId;
         var roomStateResponse = await client.GetRoomState();
         if (roomStateResponse.IsStatusOk())
         {
             InitializePlayerListModel(roomStateResponse.Payload.GetRoomStateResponse);
-            Debug.Log($"player list is {playerList}, playerListMode {playerListModel}, model list {playerListModel.PlayerList}");
 
-            // playerList.itemsSource = playerListModel.PlayerList;
-            // playerList.makeItem = () => playerListItemAsset.CloneTree();
-            // playerList.bindItem = (e, i) =>
-            // {
-            //     Debug.Log($"binding item at index {i}");
-            //     e.Q<Label>("player-name").text = playerListModel.PlayerList[i].Name;
-            // };
-            playerList.itemsSource = testIdList;
+            playerList.itemsSource = playerListModel.PlayerList;
             playerList.makeItem = () => playerListItemAsset.CloneTree();
             playerList.bindItem = (e, i) =>
             {
-                Debug.Log($"binding item at index {i}");
-                e.Q<Label>("player-name").text = testIdList[i];
+                e.Q<Label>("player-name").text = playerListModel.PlayerList[i].Name;
             };
+
         }
         // subscribe to room change
         client.OnRoomStateChange += OnRoomStateChange;
@@ -93,6 +84,7 @@ public class RoomUiControl : MonoBehaviour
         {
             HostId = roomStateResponse.HostId,
             StateToken = roomStateResponse.Token,
+            PlayerList = new List<PlayerListItemModel>(),
         };
         foreach (var player in roomStateResponse.Players)
         {
@@ -101,11 +93,6 @@ public class RoomUiControl : MonoBehaviour
                 Id = player.Id,
                 Name = player.Name,
             });
-            testIdList.Add(player.Id);
-        }
-        for (var i = 0; i < 20; i++)
-        {
-            testIdList.Add("" + i);
         }
         UpdateForHost();
     }
@@ -129,7 +116,6 @@ public class RoomUiControl : MonoBehaviour
                     Id = playerJoin.Id,
                     Name = playerJoin.Name,
                 });
-                testIdList.Add(playerJoin.Id);
                 break;
             case RoomStateChangePayload.ChangeOneofCase.PlayerLeave:
                 var playerLeave = changePayload.PlayerLeave;
@@ -138,7 +124,6 @@ public class RoomUiControl : MonoBehaviour
                 {
                     Id = playerLeave
                 });
-                testIdList.Remove(playerLeave);
                 break;
             case RoomStateChangePayload.ChangeOneofCase.HostLeave:
                 var hostLeave = changePayload.HostLeave;
@@ -147,20 +132,16 @@ public class RoomUiControl : MonoBehaviour
                 {
                     Id = hostLeave.HostId
                 });
-                testIdList.Remove(hostLeave.HostId);
                 playerListModel.HostId = hostLeave.NewHostId;
                 UpdateForHost();
                 break;
         }
-        Debug.Log($"refreshing playerList {playerListModel.PlayerList.Count}");
-        // playerList.itemsSource
         playerList.Refresh();
     }
 
     void UpdateForHost()
     {
-        ClientState clientState = WebSocketClient.Instance.GetState<ClientState>();
-        if (playerListModel?.HostId?.Equals(clientState.UserId) ?? false)
+        if (playerListModel.HostId.Equals(PriselClient.Instance.State().UserId))
         {
             startButton.style.display = DisplayStyle.Flex;
         }
@@ -171,32 +152,32 @@ public class RoomUiControl : MonoBehaviour
     }
 
 
-    [Serializable]
-    class PlayerListModel : ScriptableObject
+    struct PlayerListModel
     {
-        [SerializeField]
-        internal List<PlayerListItemModel> PlayerList = new List<PlayerListItemModel>();
-        [SerializeField]
-        internal string HostId { get; set; } = "";
-        [SerializeField]
-        internal string StateToken { get; set; } = "";
+        internal List<PlayerListItemModel> PlayerList;
+        internal string HostId { get; set; }
+        internal string StateToken { get; set; }
     }
 
-    [Serializable]
     class PlayerListItemModel : IEquatable<PlayerListItemModel>
     {
-        [SerializeField]
-        internal string Name { get; set; } = "";
-        [SerializeField]
-        internal string Id { get; set; } = "";
+        internal string Name { get; set; }
+        internal string Id { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            PlayerListItemModel objAsPart = obj as PlayerListItemModel;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
+        }
         public bool Equals(PlayerListItemModel other)
         {
-            if (other == null)
-            {
-                return false;
-            }
             return Id.Equals(other.Id);
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 

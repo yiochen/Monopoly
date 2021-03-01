@@ -1,34 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using System.Threading.Tasks;
 using Prisel.Protobuf;
 using Google.Protobuf;
-
-
-using HybridWebSocket;
+using SimpleWebSocket;
 using System;
 
 namespace Prisel.Common
 {
-    public class WebSocketClient
+    public class PriselClient
     {
-        private static readonly System.Lazy<WebSocketClient> LazyInstance =
-        new System.Lazy<WebSocketClient>(CreateSingleton);
+        private static readonly System.Lazy<PriselClient> LazyInstance =
+        new System.Lazy<PriselClient>(CreateSingleton);
 
-        public static WebSocketClient Instance => LazyInstance.Value;
+        public static PriselClient Instance => LazyInstance.Value;
 
-        private static WebSocketClient CreateSingleton()
+        private static PriselClient CreateSingleton()
         {
-            return new WebSocketClient();
+            return new PriselClient();
         }
 
         public delegate void OnEmit(Packet packet);
         public OnEmit OnEmitCallback;
 
-        private WebSocket Client;
-        private Task ConnectionTask;
+        private WebSocketClient Client;
+
         private readonly RequestManager RequestManager = RequestManager.Instance;
 
         // System actions coming from server
@@ -44,95 +40,57 @@ namespace Prisel.Common
             _State = state;
         }
 
-        public T GetState<T>() => _State is T ? _State: null ;
+        public T GetState<T>() => _State is T ? _State : null;
 
         public Dictionary<string, Action<Packet>> OnActions = new Dictionary<string, Action<Packet>>();
-
-        private Task WrapConnect(WebSocket client)
+        public bool IsConnected
         {
-            var t = new TaskCompletionSource<bool>();
-            client.OnOpen += () => { t.TrySetResult(true); };
-            client.Connect();
-            return t.Task;
+            get
+            {
+                return Client != null && Client.State == State.Open;
+            }
         }
-
-        public bool IsConnected { get; private set; }
         public string ServerUrl { private get; set; } = "ws://echo.websocket.org";
 
-        public async Task<WebSocketClient> Connect()
+        public async Task<PriselClient> Connect()
         {
             if (!IsConnected)
             {
                 // Create WebSocket instance
-                Client = WebSocketFactory.CreateInstance(ServerUrl);
-                Debug.Log("connecting to " + ServerUrl);
+                Client = new WebSocketClient(ServerUrl);
+                Debug.Log("Connecting to " + ServerUrl);
 
-
-
-                // Add OnMessage event listener
                 Client.OnMessage += OnMessage;
-
-                // Add OnError event listener
                 Client.OnError += OnError;
-
-                // Add OnClose event listener
                 Client.OnClose += OnClose;
 
-                ConnectionTask = WrapConnect(Client);
-                await ConnectionTask;
-                if (ConnectionTask != null)
-                {
-                    IsConnected = true;
-                    ConnectionTask = null; // remove the connectionTask, we don't need it anymore
-                }
-                else
-                {
-                    // client is closed through Close();
-                    IsConnected = false;
-                }
+                await Client.Connect();
+                Debug.Log("Client connected");
             }
             return this;
         }
 
-        public void Close()
+        public async Task Close()
         {
-            if (IsConnected)
-            {
-                Client.Close();
-                IsConnected = false;
-
-                ConnectionTask = null;
-
-                return;
-            }
-            if (ConnectionTask != null)
-            {
-                // It is currently connecting
-                Client.Close();
-                ConnectionTask = null;
-                IsConnected = false;
-                return;
-            }
-            IsConnected = false;
+            await Client?.Close();
+            Client = null;
         }
 
         public void OnError(string errMsg)
         {
-            Debug.Log("WS error: " + errMsg);
+            Debug.Log($"WS error: {errMsg}");
         }
 
-        public void OnClose(WebSocketCloseCode code)
+        public void OnClose(System.Net.WebSockets.WebSocketCloseStatus closeStatus)
         {
-            Debug.Log("WS closed with code: " + code.ToString());
+            Debug.Log($"WS closed with code {closeStatus}");
         }
 
         public void OnMessage(byte[] msg)
         {
             Prisel.Protobuf.Packet packet = Prisel.Protobuf.Packet.Parser.ParseFrom(msg);
             ProcessPacket(packet);
-
             Debug.Log("WS received message" + packet.ToString());
-
         }
 
         private void ProcessPacket(Prisel.Protobuf.Packet packet)
@@ -189,6 +147,7 @@ namespace Prisel.Common
 
         public void Emit(Packet packet)
         {
+            Debug.Log("emitting " + packet.ToString());
             Client.Send(packet.ToByteArray());
             OnEmitCallback?.Invoke(packet);
         }

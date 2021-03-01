@@ -13,7 +13,7 @@ public static class TestLoginFlow
 
     public static async Task AttemptConnect()
     {
-        WebSocketClient client = WebSocketClient.Instance;
+        PriselClient client = PriselClient.Instance;
         if (!client.IsConnected)
         {
             client.ServerUrl = "ws://localhost:3000";
@@ -25,9 +25,9 @@ public static class TestLoginFlow
     public static async Task AttemptLogin()
     {
         await AttemptConnect();
-        WebSocketClient client = WebSocketClient.Instance;
+        PriselClient client = PriselClient.Instance;
 
-        var clientState = client.GetState<ClientState>();
+        var clientState = client.State();
         if (String.IsNullOrEmpty(clientState.UserId))
         {
             var response = await client.Login(USERNAME);
@@ -48,8 +48,8 @@ public static class TestLoginFlow
     public static async Task AttemptCreateRoom()
     {
         await AttemptLogin();
-        WebSocketClient client = WebSocketClient.Instance;
-        var clientState = client.GetState<ClientState>();
+        PriselClient client = PriselClient.Instance;
+        var clientState = client.State();
         if (String.IsNullOrEmpty(clientState.RoomId))
         {
             var response = await client.CreateRoom("room");
@@ -70,14 +70,14 @@ public static class TestLoginFlow
     public static async Task AttemptStartGame()
     {
         await AttemptCreateRoom();
-        WebSocketClient client = WebSocketClient.Instance;
-        var clientState = client.GetState<ClientState>();
+        PriselClient client = PriselClient.Instance;
+        var clientState = client.State();
         if (!clientState.GameStarted)
         {
             var response = await client.StartGame();
             if (response.IsStatusOk())
             {
-                client.GetState<ClientState>().GameStarted = true;
+                client.State().GameStarted = true;
                 Debug.Log("Successfully started game");
             }
             else

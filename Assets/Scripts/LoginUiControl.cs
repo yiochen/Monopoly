@@ -19,7 +19,7 @@ public class LoginUiControl : MonoBehaviour
 
     private async Task Connect()
     {
-        WebSocketClient client = WebSocketClient.Instance;
+        PriselClient client = PriselClient.Instance;
         client.ServerUrl = "ws://localhost:3000";
         await client.Connect();
         client.SetState(new ClientState());
@@ -33,10 +33,10 @@ public class LoginUiControl : MonoBehaviour
         }
         else
         {
-            var client = WebSocketClient.Instance;
+            var client = PriselClient.Instance;
             var response = await client.Login(username);
             var userId = response.Payload.LoginResponse.UserId;
-            ClientState clientState = client.GetState<ClientState>() ?? new ClientState();
+            ClientState clientState = client.State();
             client.SetState(clientState);
             clientState.Username = username;
             clientState.UserId = userId;

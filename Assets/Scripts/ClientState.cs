@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Prisel.Common;
 public class ClientState
 {
     public string Username { get; set; } = "";
@@ -25,6 +27,16 @@ public class ClientState
     {
         GamePlayerId = "";
         GameStarted = false;
+    }
+}
+
+public static class ClientStateExtension
+{
+    public static ClientState State(this PriselClient priselClient)
+    {
+        ClientState state = priselClient.GetState<ClientState>() ?? new ClientState();
+        priselClient.SetState(state);
+        return state;
     }
 }
 

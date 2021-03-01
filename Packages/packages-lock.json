@@ -112,6 +112,13 @@
       "dependencies": {},
       "hash": "3b8cc3af74143152515604215ca79c82871927ab"
     },
+    "me.yiou.simplewebsocket": {
+      "version": "https://github.com/yiochen/SimpleWebSocket.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "92b6b6cfc692e63f7c7e83a936a48ff0d6380435"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

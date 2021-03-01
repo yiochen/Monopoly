@@ -16,11 +16,11 @@ public static class DisconnectWebsocketWhenExitPlayMode
     {
         if (state == PlayModeStateChange.ExitingPlayMode)
         {
-            WebSocketClient client = WebSocketClient.Instance;
+            PriselClient client = PriselClient.Instance;
             if (client.IsConnected)
             {
                 Debug.Log("exiting play mode, force closing socket");
-                client.Close();
+                _ = client.Close();
             }
         }
     }
