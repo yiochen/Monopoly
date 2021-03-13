@@ -10,24 +10,22 @@ public class SerializationTest : MonoBehaviour
 {
     void Start()
     {
-        string json = @"{
-                ""tiles"": [
-                    {
-                        ""id"": ""mocked_id"",
-                        ""position"": { ""row"": 0, ""col"": 0 },
-                        ""next"": [""V11sapn7"", ""ssfsdf""],
-                        ""prev"": [""3Ot2AEDN""],
-                        ""hasProperties"": [],
-                        ""isStart"": true
-                    }
-                ]
-            }";
-        World world = JsonConvert.DeserializeObject<MonopolyWorld>(json, new JsonSerializerSettings
+        string json = Resources.Load<TextAsset>("demoMap").text;
+        DefaultContractResolver contractResolver = new DefaultContractResolver
         {
+            NamingStrategy = new CamelCaseNamingStrategy()
+        };
+        BoardSetup boardSetup = JsonConvert.DeserializeObject<BoardSetup>(json, new JsonSerializerSettings
+        {
+            ContractResolver = contractResolver,
             Context = new StreamingContext(StreamingContextStates.All, new DeserializationContext())
         });
 
-        Debug.Log(JsonConvert.SerializeObject(world));
+        Debug.Log(JsonConvert.SerializeObject(boardSetup, new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ContractResolver = contractResolver,
+        }));
     }
 
     // Update is called once per frame

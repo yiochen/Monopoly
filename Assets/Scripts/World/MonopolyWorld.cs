@@ -4,9 +4,7 @@ using System.Collections.Generic;
 
 namespace Monopoly.Client
 {
-    [JsonObject(
-    MemberSerialization.OptIn,
-    NamingStrategyType = typeof(CamelCaseNamingStrategy))]
+    [JsonObject(MemberSerialization.OptIn)]
     public class MonopolyWorld : World
     {
         [JsonProperty]

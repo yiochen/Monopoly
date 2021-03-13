@@ -3,9 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System.Runtime.Serialization;
 namespace Monopoly.Client
 {
-    [JsonObject(
-    MemberSerialization.OptIn,
-    NamingStrategyType = typeof(CamelCaseNamingStrategy))]
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class GameObject
     {
 

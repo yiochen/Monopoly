@@ -5,12 +5,9 @@ using System.Collections.Generic;
 
 namespace Monopoly.Client
 {
-    [JsonObject(
-    MemberSerialization.OptIn,
-    NamingStrategyType = typeof(CamelCaseNamingStrategy))]
+    [JsonObject(MemberSerialization.OptIn)]
     class TileObject : GameObject
     {
-        [JsonProperty]
         public override string Type
         {
             get => "tile";
