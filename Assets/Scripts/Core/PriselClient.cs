@@ -8,6 +8,8 @@ using System;
 
 namespace Prisel.Common
 {
+#nullable enable
+
     public class PriselClient
     {
         private static readonly System.Lazy<PriselClient> LazyInstance =
@@ -21,27 +23,25 @@ namespace Prisel.Common
         }
 
         public delegate void OnEmit(Packet packet);
-        public OnEmit OnEmitCallback;
+        public OnEmit? OnEmitCallback;
 
-        private WebSocketClient Client;
+        private WebSocketClient? Client;
 
         private readonly RequestManager RequestManager = RequestManager.Instance;
 
         // System actions coming from server
-        public Action<Packet> OnWelcome;
-        public Action<Packet> OnGameStart;
-        public Action<Packet> OnRoomStateChange;
-        public Action<Packet> OnBroadcast;
+        public Action<Packet>? OnWelcome;
+        public Action<Packet>? OnGameStart;
+        public Action<Packet>? OnRoomStateChange;
+        public Action<Packet>? OnBroadcast;
 
-        private dynamic _State;
+        private object? _State;
 
         public void SetState<T>(T state)
         {
             _State = state;
         }
-
-        public T GetState<T>() => _State is T ? _State : null;
-
+        public T? GetState<T>() where T : class => _State is T ? (T)_State : null;
         public Dictionary<string, Action<Packet>> OnActions = new Dictionary<string, Action<Packet>>();
         public bool IsConnected
         {
@@ -72,7 +72,10 @@ namespace Prisel.Common
 
         public async Task Close()
         {
-            await Client?.Close();
+            if (Client != null)
+            {
+                await Client.Close();
+            }
             Client = null;
         }
 
@@ -148,7 +151,7 @@ namespace Prisel.Common
         public void Emit(Packet packet)
         {
             Debug.Log("emitting " + packet.ToString());
-            Client.Send(packet.ToByteArray());
+            Client?.Send(packet.ToByteArray());
             OnEmitCallback?.Invoke(packet);
         }
 
@@ -203,5 +206,7 @@ namespace Prisel.Common
 
         public async Task<Packet> GetLobbyState() => await Request(RequestUtils.NewSystemRequest(SystemActionType.GetLobbyState, NewId));
     }
+#nullable disable
+
 }
 
