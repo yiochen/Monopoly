@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace Monopoly.Client
 {
+#nullable enable
+
     public class World
     {
         private Dictionary<string, GameObject> m_ObjectMap = new Dictionary<string, GameObject>();
 
         private Dictionary<Type, HashSet<string>> m_IdMap = new Dictionary<Type, HashSet<string>>();
 
-        private string CreateId(string specifiedId = null)
+        private string CreateId(string? specifiedId = null)
         {
             if (specifiedId != null && m_ObjectMap.ContainsKey(specifiedId))
             {
@@ -23,7 +25,6 @@ namespace Monopoly.Client
             }
             return System.Guid.NewGuid().ToString();
         }
-#nullable enable
         public GameObject? Get(string id)
         {
             bool exists = this.m_ObjectMap.TryGetValue(id, out GameObject o);
@@ -163,6 +164,10 @@ namespace Monopoly.Client
 
         protected virtual void ClearSerializedFields() { }
 
+        public virtual void AddToWorld()
+        {
+            // create tilemap
+        }
     }
 #nullable disable
 

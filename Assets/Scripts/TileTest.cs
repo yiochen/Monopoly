@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Monopoly.Client;
 public class TileTest : MonoBehaviour
 {
     public TileBase Tile;

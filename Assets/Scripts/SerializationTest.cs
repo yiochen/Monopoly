@@ -21,11 +21,16 @@ public class SerializationTest : MonoBehaviour
             Context = new StreamingContext(StreamingContextStates.All, new DeserializationContext())
         });
 
-        Debug.Log(JsonConvert.SerializeObject(boardSetup, new JsonSerializerSettings
-        {
-            Formatting = Formatting.Indented,
-            ContractResolver = contractResolver,
-        }));
+        MonopolyWorld world = boardSetup.World;
+        world.Width = boardSetup.Width;
+        world.Height = boardSetup.Height;
+        world.AddToWorld();
+
+        // Debug.Log(JsonConvert.SerializeObject(boardSetup, new JsonSerializerSettings
+        // {
+        //     Formatting = Formatting.Indented,
+        //     ContractResolver = contractResolver,
+        // }));
     }
 
     // Update is called once per frame

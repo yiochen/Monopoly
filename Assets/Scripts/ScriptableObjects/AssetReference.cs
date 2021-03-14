@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Monopoly.Client
 {
     [CreateAssetMenu(fileName = "AssetRef", menuName = "Settings/AssetRef")]
 
-    class AssetReference : ScriptableObject
+    public class AssetReference : ScriptableObject
     {
         public Sprite AllDirectionRoad;
         public Sprite VerticalRoad;
@@ -18,5 +19,7 @@ namespace Monopoly.Client
         public Sprite TLeftRoad;
         public Sprite TRightRoad;
         public Sprite EmptyTile;
+
+        public Sprite LandTile;
     }
 }

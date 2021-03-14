@@ -24,3 +24,4 @@ MonoBehaviour:
   TLeftRoad: {fileID: 21300000, guid: fd6c62b2b24da4f9c8e2d08f3f253f44, type: 3}
   TRightRoad: {fileID: 21300000, guid: cc85037962a71491b9a356f1deb72df6, type: 3}
   EmptyTile: {fileID: 21300000, guid: 46e6d64305d8540909a267640eb88f18, type: 3}
+  LandTile: {fileID: 21300000, guid: e02e3591861ff45038fdd2f6a4ef30fe, type: 3}

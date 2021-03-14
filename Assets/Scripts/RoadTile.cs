@@ -3,105 +3,63 @@ using UnityEngine.Tilemaps;
 
 namespace Monopoly.Client
 {
-
-    class RoadTile : Tile
+    public enum RoadDirection
     {
-        internal TileObject TileObject { get; set; }
+        ALL_DIRECTION,
+        VERTICAL,
+        HORIZONTAL,
+        T_LEFT,
+        T_RIGHT,
+        T_UP,
+        T_DOWN,
+        LEFT_UP,
+        LEFT_DOWN,
+        RIGHT_UP,
+        RIGHT_DOWN,
+        EMPTY
+    }
+    [CreateAssetMenu(menuName = "tiles/RoadTile")]
+    public class RoadTile : TileBase
+    {
+        public RoadDirection Direction;
         internal AssetReference AssetRef { get; set; }
-
 
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
         {
-            tileData.color = this.color;
-            tileData.transform = this.transform;
-            tileData.flags = this.flags;
-            tileData.sprite = GetSprite();
+            tileData.sprite = GetSprite(Direction);
         }
 
-        Sprite GetSprite()
+        Sprite GetSprite(RoadDirection direction)
         {
-            bool up = false;
-            bool left = false;
-            bool right = false;
-            bool down = false;
-
-            foreach (Ref<TileObject> prev in TileObject.Prev)
+            switch (direction)
             {
-                if (prev.Value.IsLeftOf(TileObject))
-                {
-                    left = true;
-                }
-                if (prev.Value.IsRightOf(TileObject))
-                {
-                    right = true;
-                }
-                if (prev.Value.IsUpOf(TileObject))
-                {
-                    up = true;
-                }
-                if (prev.Value.IsDownOf(TileObject))
-                {
-                    down = true;
-                }
+                case RoadDirection.ALL_DIRECTION:
+                    return AssetRef.AllDirectionRoad;
+                case RoadDirection.T_LEFT:
+                    return AssetRef.TLeftRoad;
+                case RoadDirection.T_RIGHT:
+                    return AssetRef.TRightRoad;
+                case RoadDirection.T_UP:
+                    return AssetRef.TUpRoad;
+                case RoadDirection.T_DOWN:
+                    return AssetRef.TDownRoad;
+                case RoadDirection.VERTICAL:
+                    return AssetRef.VerticalRoad;
+                case RoadDirection.HORIZONTAL:
+                    return AssetRef.HorizontalRoad;
+                case RoadDirection.LEFT_UP:
+                    return AssetRef.LeftUpRoad;
+                case RoadDirection.LEFT_DOWN:
+                    return AssetRef.LeftDownRoad;
+                case RoadDirection.RIGHT_UP:
+                    return AssetRef.RightUpRoad;
+                case RoadDirection.RIGHT_DOWN:
+                    return AssetRef.RightDownRoad;
+                default:
+                    return AssetRef.EmptyTile;
             }
-
-            foreach (Ref<TileObject> next in TileObject.Next)
-            {
-                if (TileObject.IsLeftOf(next.Value))
-                {
-                    left = true;
-                }
-                if (TileObject.IsRightOf(next.Value))
-                {
-                    right = true;
-                }
-                if (TileObject.IsUpOf(next.Value))
-                {
-                    up = true;
-                }
-                if (TileObject.IsDownOf(next.Value))
-                {
-                    down = true;
-                }
-            }
-            if (up && down && left && right)
-            {
-                return AssetRef.AllDirectionRoad;
-            }
-            if (up && down && left)
-            {
-                return AssetRef.TLeftRoad;
-            }
-            if (up && down && right)
-            {
-                return AssetRef.TRightRoad;
-            }
-            if (up && down)
-            {
-                return AssetRef.VerticalRoad;
-            }
-            if (left && right)
-            {
-                return AssetRef.HorizontalRoad;
-            }
-            if (left && up)
-            {
-                return AssetRef.LeftUpRoad;
-            }
-            if (left && down)
-            {
-                return AssetRef.LeftDownRoad;
-            }
-            if (right && up)
-            {
-                return AssetRef.RightUpRoad;
-            }
-            if (right && down)
-            {
-                return AssetRef.RightDownRoad;
-            }
-            return AssetRef.EmptyTile;
         }
+
     }
     static class TileUtils
     {
@@ -123,6 +81,101 @@ namespace Monopoly.Client
         internal static bool IsDownOf(this TileObject thisTile, TileObject otherTile)
         {
             return thisTile.Position.Col == otherTile.Position.Col && thisTile.Position.Row > otherTile.Position.Row;
+        }
+
+        internal static RoadDirection GetDirection(this TileObject tileObject)
+        {
+
+            bool up = false;
+            bool left = false;
+            bool right = false;
+            bool down = false;
+
+            foreach (Ref<TileObject> prev in tileObject.Prev)
+            {
+                if (prev.Value.IsLeftOf(tileObject))
+                {
+                    left = true;
+                }
+                if (prev.Value.IsRightOf(tileObject))
+                {
+                    right = true;
+                }
+                if (prev.Value.IsUpOf(tileObject))
+                {
+                    up = true;
+                }
+                if (prev.Value.IsDownOf(tileObject))
+                {
+                    down = true;
+                }
+            }
+
+            foreach (Ref<TileObject> next in tileObject.Next)
+            {
+                if (next.Value.IsLeftOf(tileObject))
+                {
+                    left = true;
+                }
+                if (next.Value.IsRightOf(tileObject))
+                {
+                    right = true;
+                }
+                if (next.Value.IsUpOf(tileObject))
+                {
+                    up = true;
+                }
+                if (next.Value.IsDownOf(tileObject))
+                {
+                    down = true;
+                }
+            }
+            if (up && down && left && right)
+            {
+                return RoadDirection.ALL_DIRECTION;
+            }
+            if (up && down && left)
+            {
+                return RoadDirection.T_LEFT;
+            }
+            if (up && down && right)
+            {
+                return RoadDirection.T_RIGHT;
+            }
+            if (up && left && right)
+            {
+                return RoadDirection.T_UP;
+            }
+            if (down && left && right)
+            {
+                return RoadDirection.T_DOWN;
+            }
+            if (up && down)
+            {
+                return RoadDirection.VERTICAL;
+            }
+            if (left && right)
+            {
+                return RoadDirection.HORIZONTAL;
+            }
+            if (left && up)
+            {
+                return RoadDirection.LEFT_UP;
+            }
+            if (left && down)
+            {
+                return RoadDirection.LEFT_DOWN;
+            }
+            if (right && up)
+            {
+                return RoadDirection.RIGHT_UP;
+            }
+            if (right && down)
+            {
+                return RoadDirection.RIGHT_DOWN;
+            }
+            return RoadDirection.EMPTY;
+
         }
     }
 }
