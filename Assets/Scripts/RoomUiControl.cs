@@ -6,7 +6,6 @@ using Prisel.Common;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using Prisel.Protobuf;
-using UnityEditor;
 public class RoomUiControl : MonoBehaviour
 {
     private VisualElement uiRoot;
@@ -18,6 +17,7 @@ public class RoomUiControl : MonoBehaviour
 
     private PlayerListModel playerListModel;
 
+    [SerializeField]
     private VisualTreeAsset playerListItemAsset;
     private void OnEnable()
     {
@@ -28,11 +28,8 @@ public class RoomUiControl : MonoBehaviour
         startButton = uiRoot.Q<Button>("start-game-button");
         playerList = uiRoot.Q<ListView>("player-list");
 
-        playerListItemAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/PlayerInfoItem.uxml");
-
         var leaveRoomButton = uiRoot.Q<Button>("leave-room-button");
         leaveRoomButton.RegisterCallback<ClickEvent>(async e => await Leave());
-        // startButton.RegisterCallback<ClickEvent>(e => playerList.Refresh());
     }
 
     private async Task Leave()

@@ -1,67 +1,30 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.AddressableAssets;
 
 namespace Monopoly.Client
 {
+    /// <summary>
+    /// Enum representing the Road tile direction. The enum name should match
+    /// the file name of the tile asset in Assts/Tileset when converting to
+    /// lowercase and replacing "_" with "-"
+    /// </summary>
     public enum RoadDirection
     {
-        ALL_DIRECTION,
-        VERTICAL,
-        HORIZONTAL,
-        T_LEFT,
-        T_RIGHT,
-        T_UP,
-        T_DOWN,
-        LEFT_UP,
-        LEFT_DOWN,
-        RIGHT_UP,
-        RIGHT_DOWN,
-        EMPTY
+        AllDirection,
+        Vertical,
+        Horizontal,
+        TLeft,
+        TRight,
+        TUp,
+        TDown,
+        LeftUp,
+        LeftDown,
+        RightUp,
+        RightDown,
+        Empty_1
     }
-    [CreateAssetMenu(menuName = "tiles/RoadTile")]
-    public class RoadTile : TileBase
-    {
-        public RoadDirection Direction;
-        internal AssetReference AssetRef { get; set; }
-
-        public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
-        {
-            tileData.sprite = GetSprite(Direction);
-        }
-
-        Sprite GetSprite(RoadDirection direction)
-        {
-            switch (direction)
-            {
-                case RoadDirection.ALL_DIRECTION:
-                    return AssetRef.AllDirectionRoad;
-                case RoadDirection.T_LEFT:
-                    return AssetRef.TLeftRoad;
-                case RoadDirection.T_RIGHT:
-                    return AssetRef.TRightRoad;
-                case RoadDirection.T_UP:
-                    return AssetRef.TUpRoad;
-                case RoadDirection.T_DOWN:
-                    return AssetRef.TDownRoad;
-                case RoadDirection.VERTICAL:
-                    return AssetRef.VerticalRoad;
-                case RoadDirection.HORIZONTAL:
-                    return AssetRef.HorizontalRoad;
-                case RoadDirection.LEFT_UP:
-                    return AssetRef.LeftUpRoad;
-                case RoadDirection.LEFT_DOWN:
-                    return AssetRef.LeftDownRoad;
-                case RoadDirection.RIGHT_UP:
-                    return AssetRef.RightUpRoad;
-                case RoadDirection.RIGHT_DOWN:
-                    return AssetRef.RightDownRoad;
-                default:
-                    return AssetRef.EmptyTile;
-            }
-        }
-
-    }
-    static class TileUtils
+    static class RoadTileUtils
     {
         internal static bool IsLeftOf(this TileObject thisTile, TileObject otherTile)
         {
@@ -83,7 +46,12 @@ namespace Monopoly.Client
             return thisTile.Position.Col == otherTile.Position.Col && thisTile.Position.Row > otherTile.Position.Row;
         }
 
-        internal static RoadDirection GetDirection(this TileObject tileObject)
+        public static string ToAddress(this RoadDirection direction)
+        {
+            return $"Assets/Tileset/{direction.ToString().ToLowerKebabCase()}.asset";
+        }
+
+        public static RoadDirection GetRoadDirection(this TileObject tileObject)
         {
 
             bool up = false;
@@ -132,49 +100,49 @@ namespace Monopoly.Client
             }
             if (up && down && left && right)
             {
-                return RoadDirection.ALL_DIRECTION;
+                return RoadDirection.AllDirection;
             }
             if (up && down && left)
             {
-                return RoadDirection.T_LEFT;
+                return RoadDirection.TLeft;
             }
             if (up && down && right)
             {
-                return RoadDirection.T_RIGHT;
+                return RoadDirection.TRight;
             }
             if (up && left && right)
             {
-                return RoadDirection.T_UP;
+                return RoadDirection.TUp;
             }
             if (down && left && right)
             {
-                return RoadDirection.T_DOWN;
+                return RoadDirection.TDown;
             }
             if (up && down)
             {
-                return RoadDirection.VERTICAL;
+                return RoadDirection.Vertical;
             }
             if (left && right)
             {
-                return RoadDirection.HORIZONTAL;
+                return RoadDirection.Horizontal;
             }
             if (left && up)
             {
-                return RoadDirection.LEFT_UP;
+                return RoadDirection.LeftUp;
             }
             if (left && down)
             {
-                return RoadDirection.LEFT_DOWN;
+                return RoadDirection.LeftDown;
             }
             if (right && up)
             {
-                return RoadDirection.RIGHT_UP;
+                return RoadDirection.RightUp;
             }
             if (right && down)
             {
-                return RoadDirection.RIGHT_DOWN;
+                return RoadDirection.RightDown;
             }
-            return RoadDirection.EMPTY;
+            return RoadDirection.Empty_1;
 
         }
     }

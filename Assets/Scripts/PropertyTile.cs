@@ -1,20 +1,21 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+using UnityEditor;
 namespace Monopoly.Client
 {
-    public enum PropertyColor
+    public static class PropertyTileUtils
     {
-        YELLOW,
-        BEIGE,
-        PINK,
-        BLUE,
-        GREEN
-    }
-    public class PropertyTile : TileBase
-    {
-        public int Level = 0;
-        public PropertyColor Color = PropertyColor.BEIGE;
-
-
+        /// <summary>
+        /// Property assets are named following "property-level-{level}-{color}" pattern.
+        /// </summary>
+        public static string ToAddress(this PropertyObject property)
+        {
+            if (property.CurrentLevel == -1)
+            {
+                return $"Assets/Tileset/property.asset";
+            }
+            return $"Assets/Tileset/property-level-{property.CurrentLevel}-{property.Owner.Value.ToColor()}";
+        }
     }
 }

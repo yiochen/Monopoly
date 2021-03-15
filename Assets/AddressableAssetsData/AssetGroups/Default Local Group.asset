@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: cf450e043bded4606a766ff5e126aa49
+  m_SerializeEntries:
+  - m_GUID: fc4dea5cb182d4ae0aab2d96f8073ae1
+    m_Address: Assets/Tileset/vertical.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 61525da61387c421293ece65d81b6626
+    m_Address: Assets/Tileset/t-up.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 00c146938ad404360afaa43a8e937d51
+    m_Address: Assets/Tileset/t-right.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b5299268c218d4a3798975526ae7657a
+    m_Address: Assets/Tileset/t-left.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: fa5681cac2aeb40668bb7e1069731435
+    m_Address: Assets/Tileset/t-down.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 034b6d4639e8c48179a4954bb6aac732
+    m_Address: Assets/Tileset/slice5.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b6fbc3ddc65114528ac9ab3298802d38
+    m_Address: Assets/Tileset/slice4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 463771831068a46939172c72a36492f0
+    m_Address: Assets/Tileset/right-up.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 60558245e535b4037a997c2f26e7cb59
+    m_Address: Assets/Tileset/right-down.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a4ed1b8fd1d7043deb304f0f23790157
+    m_Address: Assets/Tileset/property.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 95d5a01ca382f47348ebcf44c9940b90
+    m_Address: Assets/Tileset/property-owned-yellow.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7253d531749084798bf18edf355ea128
+    m_Address: Assets/Tileset/property-owned-pink.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ca9faca7a5e3e4ff69e8243ac48ee905
+    m_Address: Assets/Tileset/property-owned-green.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 21b22305a7d0e4147a5196d3ff254d0c
+    m_Address: Assets/Tileset/property-owned-blue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f92fc7d60e8274a68a44b7cb3715dbcc
+    m_Address: Assets/Tileset/property-owned-beige.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 0ee61e073c4d54ed0a67331490baae49
+    m_Address: Assets/Tileset/property-level-3-yellow.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b222d80643bb24c36abe951439cd65cf
+    m_Address: Assets/Tileset/property-level-3-pink.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: eec49a9d054aa4658a2a4a04063107da
+    m_Address: Assets/Tileset/property-level-3-green.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cfae55d5846994968bc332084ade60da
+    m_Address: Assets/Tileset/property-level-3-blue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a7f343bb424474c06ac5c873d23f9fd2
+    m_Address: Assets/Tileset/property-level-3-beige.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a66523d78510a4a64bf308c628af14dc
+    m_Address: Assets/Tileset/property-level-2-yellow.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7169c06bdf50941fcae44b8fccbed79c
+    m_Address: Assets/Tileset/property-level-2-pink.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 69067bc1f6ce244c8abe54b65a6a03e0
+    m_Address: Assets/Tileset/property-level-2-green.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 466ff0e3fbb1540ecabf35418aec79a8
+    m_Address: Assets/Tileset/property-level-2-blue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 85020e229d7044a0a9fa950a55d35529
+    m_Address: Assets/Tileset/property-level-2-beige.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 6ed80094e5cd2425ab786f8db81cabaa
+    m_Address: Assets/Tileset/left-up.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 23c1ab9d351084be0808de962cbeb71c
+    m_Address: Assets/Tileset/left-down.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5819dc56c1b7b4dbe9315b6460388609
+    m_Address: Assets/Tileset/horizontal.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b0d55bd5ad32d426aa82708d3a3c94fd
+    m_Address: Assets/Tileset/empty-7.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e921d95cf173545dc8239879b6c675ce
+    m_Address: Assets/Tileset/empty-6.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: cc800ccdcc0f74a68840b36f3d509964
+    m_Address: Assets/Tileset/empty-5.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: aafd81a4523ab44daa1d11de0c3c87af
+    m_Address: Assets/Tileset/empty-4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a2b50555803e04f9ab2d613a5c1f1a65
+    m_Address: Assets/Tileset/empty-3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f901d5e7054d142d283f934184ab1805
+    m_Address: Assets/Tileset/empty-2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c19ce3b072b334a6ab65bb1f41283efb
+    m_Address: Assets/Tileset/empty-1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 34b32b67f351b48c9a7e2f9c27ad859e
+    m_Address: Assets/Tileset/all-direction.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f3dc3cb8555024e6abead047c4908c4f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 96b8f0bf2be7f4cdf80e38a342a682bf, type: 2}
+    - {fileID: 11400000, guid: 4e8ce3b51cbf74d1d90f71ddf1378b1d, type: 2}
