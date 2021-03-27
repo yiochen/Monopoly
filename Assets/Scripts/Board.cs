@@ -25,6 +25,18 @@ namespace Monopoly.Client
         internal int Width = 0;
         internal int Height = 0;
 
+        private Vector3 CellSize = Vector3.zero;
+        public Vector3 CharacterOffset = Vector3.zero;
+
+        public Vector2Int TestCoordinate = Vector2Int.zero;
+
+        void Awake()
+        {
+            CellSize = AboveGround.cellSize;
+            // Move the character right and up. The character is originally at
+            // the anchor of tile, which is bottom left corner.
+            CharacterOffset = new Vector3(CellSize.x / 2, CellSize.y * 0.4f, 0);
+        }
         public void Render(World world, int width, int height)
         {
             World = world;
@@ -48,6 +60,16 @@ namespace Monopoly.Client
                 };
 
             }
+        }
+
+        public void MoveToPos(UnityEngine.GameObject gameObject, Coordinate pos)
+        {
+            gameObject.transform.position = GetCharacterPos(pos);
+        }
+
+        public Vector3 GetCharacterPos(Coordinate pos)
+        {
+            return AboveGround.CellToWorld(pos.ToTilemap()) + CharacterOffset;
         }
     }
 
