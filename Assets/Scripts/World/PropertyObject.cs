@@ -22,9 +22,6 @@ namespace Monopoly.Client
 
         [JsonProperty]
         public string Name { get; set; } = "";
-
-        [JsonProperty]
-        public Ref<PlayerObject> Owner { get; set; }
     }
 
     [JsonObject(

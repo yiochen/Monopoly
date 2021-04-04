@@ -22,7 +22,7 @@ namespace Monopoly.Client
         LeftDown,
         RightUp,
         RightDown,
-        Empty_1
+        Slice4 // empty tile
     }
     static class RoadTileUtils
     {
@@ -142,7 +142,7 @@ namespace Monopoly.Client
             {
                 return RoadDirection.RightDown;
             }
-            return RoadDirection.Empty_1;
+            return RoadDirection.Slice4;
 
         }
     }

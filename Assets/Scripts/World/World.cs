@@ -164,10 +164,6 @@ namespace Monopoly.Client
 
         protected virtual void ClearSerializedFields() { }
 
-        public virtual void AddToWorld()
-        {
-            // create tilemap
-        }
     }
 #nullable disable
 

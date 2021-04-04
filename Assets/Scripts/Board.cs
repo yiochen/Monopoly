@@ -17,6 +17,7 @@ namespace Monopoly.Client
     /// </summary>
     public class Board : MonoBehaviour
     {
+        [SerializeField] private EventBus EventBus;
         public Tilemap Ground;
         public Tilemap AboveGround;
 
@@ -27,15 +28,28 @@ namespace Monopoly.Client
 
         private Vector3 CellSize = Vector3.zero;
         public Vector3 CharacterOffset = Vector3.zero;
-
         public Vector2Int TestCoordinate = Vector2Int.zero;
 
+        [SerializeField] private ChanceChest ChanceChestPrefab;
+
+        private TilemapDict<ChanceChest> ChanceChests = new TilemapDict<ChanceChest>();
         void Awake()
         {
             CellSize = AboveGround.cellSize;
             // Move the character right and up. The character is originally at
             // the anchor of tile, which is bottom left corner.
             CharacterOffset = new Vector3(CellSize.x / 2, CellSize.y * 0.4f, 0);
+
+            EventBus.PropertyChange += OnPropertyChange;
+
+        }
+
+        private void OnPropertyChange(PropertyInfo propertyInfo, Player player)
+        {
+            Addressables.LoadAssetAsync<TileBase>(propertyInfo.ToAddress(player)).Completed += (AsyncOperationHandle<TileBase> obj) =>
+            {
+                AboveGround.SetTile(propertyInfo.Pos.ToTilemap(), obj.Result);
+            };
         }
         public void Render(World world, int width, int height)
         {
@@ -50,11 +64,19 @@ namespace Monopoly.Client
                 {
                     Ground.SetTile(tile.Position.ToTilemap(), obj.Result);
                 };
+                if (tile.ChancePool.Count > 0)
+                {
+                    // render a chance chest here
+                    ChanceChest chest = Instantiate(ChanceChestPrefab, Vector3.zero, Quaternion.identity);
+                    chest.Coordinate = tile.Position;
+                    MoveToPos(chest.gameObject, tile.Position);
+                    ChanceChests.Add(tile.Position, chest);
+                }
             }
 
             foreach (PropertyObject property in world.GetAll<PropertyObject>())
             {
-                Addressables.LoadAssetAsync<TileBase>(property.ToAddress()).Completed += (AsyncOperationHandle<TileBase> obj) =>
+                Addressables.LoadAssetAsync<TileBase>(PropertyTileUtils.DEFAULT_ADDRESS).Completed += (AsyncOperationHandle<TileBase> obj) =>
                 {
                     AboveGround.SetTile(property.Anchor.ToTilemap(), obj.Result);
                 };

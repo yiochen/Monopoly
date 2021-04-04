@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 2372261292314393939}
   - component: {fileID: 2372261292314393937}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,8 +248,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e922897cea72946b5bedb17676716aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventBus: {fileID: 11400000, guid: 87442a3f54e294a62a4ebda33e09ad4b, type: 2}
   Ground: {fileID: 2372261292084385077}
   AboveGround: {fileID: 2372261293863524249}
+  CharacterOffset: {x: 0, y: 0, z: 0}
+  TestCoordinate: {x: 0, y: 0}
+  ChanceChestPrefab: {fileID: 5078332177031906204, guid: c6faa626f6a90413e83aff2b36171fa0,
+    type: 3}
 --- !u!1 &2372261293863524250
 GameObject:
   m_ObjectHideFlags: 0

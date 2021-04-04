@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: property-level-3-green
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 50646c1f6f1a745eb962def31bb79f05, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42f2325f000e64deb89d8d0a3aeca957, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 0
+  m_ColliderType: 1

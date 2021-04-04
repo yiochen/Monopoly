@@ -50,3 +50,9 @@ TagManager:
   - name: WorldUI
     uniqueID: 2800663905
     locked: 0
+  - name: GuiBase
+    uniqueID: 1125611927
+    locked: 0
+  - name: GuiControl
+    uniqueID: 3247255425
+    locked: 0

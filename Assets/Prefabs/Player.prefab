@@ -233,6 +233,7 @@ MonoBehaviour:
   NameLabel: {fileID: 7768759256665456309}
   SpriteRenderer: {fileID: 2688630520239701133}
   Anim: {fileID: 11400000, guid: be089b92a36284950800ea3370eca9dd, type: 2}
+  EventBus: {fileID: 11400000, guid: 87442a3f54e294a62a4ebda33e09ad4b, type: 2}
   DiceNumLabel: {fileID: 8637407921044425469}
   Board: {fileID: 0}
 --- !u!114 &1386959653061435567

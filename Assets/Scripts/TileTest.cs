@@ -15,21 +15,21 @@ public class TileTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log($"Camera is {Camera.main}");
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log($"mouse click at {pos.x}, {pos.y}, {pos.z}");
-            Tilemap map = GetComponent<Tilemap>();
-            Vector3Int tilePos = map.WorldToCell(pos);
-            if (map.HasTile(tilePos))
-            {
-                map.SetTile(tilePos, null);
-            }
-            else
-            {
-                map.SetTile(tilePos, Tile);
-            }
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     Debug.Log($"Camera is {Camera.main}");
+        //     Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //     Debug.Log($"mouse click at {pos.x}, {pos.y}, {pos.z}");
+        //     Tilemap map = GetComponent<Tilemap>();
+        //     Vector3Int tilePos = map.WorldToCell(pos);
+        //     if (map.HasTile(tilePos))
+        //     {
+        //         map.SetTile(tilePos, null);
+        //     }
+        //     else
+        //     {
+        //         map.SetTile(tilePos, Tile);
+        //     }
+        // }
     }
 }

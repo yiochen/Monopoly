@@ -13,10 +13,17 @@ namespace Monopoly.Client
         [SerializeField] private Text NameLabel;
         [SerializeField] private SpriteRenderer SpriteRenderer;
         [SerializeField] private AnimationDispatcher Anim;
+        [SerializeField] private EventBus EventBus;
         [SerializeField] private Text DiceNumLabel;
         [SerializeField] private Board Board;
         private Animator Animator;
         private PathFollower PathFollower;
+
+        public Player SetCamera(Camera camera)
+        {
+            Camera = camera;
+            return this;
+        }
 
         public string Name
         {
@@ -34,6 +41,14 @@ namespace Monopoly.Client
             }
         }
 
+        public CharacterColor Color
+        {
+            get
+            {
+                return GamePlayer.ToColor();
+            }
+        }
+
         public string Id
         {
             get
@@ -46,17 +61,14 @@ namespace Monopoly.Client
             }
         }
 
-        private PlayerObject PlayerObject;
         private GamePlayer GamePlayer;
         public Coordinate Pos;
-
 
         private bool PlayingShowDiceNum = false;
 
         void Awake()
         {
             Canvas.worldCamera = Camera;
-            DiceNumLabel.gameObject.SetActive(false);
             Animator = GetComponent<Animator>();
             PathFollower = GetComponent<PathFollower>();
         }
@@ -68,6 +80,15 @@ namespace Monopoly.Client
             Anim.OnTeleportDropoff += OnTeleportDropoff;
             Anim.OnTeleportPickup += OnTeleportPickup;
             Anim.OnMove += OnMove;
+
+            EventBus.UpdateMyGamePlayerInfo += OnUpdateMyPlayerInfo;
+
+
+        }
+
+        void OnUpdateMyPlayerInfo(GamePlayer player)
+        {
+            NameLabel.text = player.BoundPlayer.Name;
         }
 
         void OnDisable()
@@ -86,7 +107,8 @@ namespace Monopoly.Client
                 var extras = anim.Extra.Unpack<TurnStartExtra>();
                 if (extras.Player.Id.Equals(Id))
                 {
-                    // play turn start animation for anim.length long
+                    SetSpeedMultiplier(anim.Length);
+                    Animator.Play("Character Layer.Player_turn_start", Animator.GetLayerIndex("Character Layer"));
                 }
             }
         }
@@ -100,18 +122,12 @@ namespace Monopoly.Client
                 {
                     PlayingShowDiceNum = true;
                     DiceNumLabel.text = $"{extras.Steps}";
-                    DiceNumLabel.gameObject.SetActive(true);
-                    SetSpeedMultiplier(anim.Length);
-                    Animator.Play("Status Layer.ShowDice", Animator.GetLayerIndex("Status Layer"));
+                    Animator.PlayForLength("Player_dice_popup", anim.Length, Animator.GetLayerIndex("Status Layer"));
                 }
             }
         }
 
-        private void OnShowDiceNumFinished()
-        {
-            DiceNumLabel.gameObject.SetActive(false);
-            Animator.Play("Status Layer.Default", Animator.GetLayerIndex("Status Layer"));
-        }
+
         string DebugAnimation(AnimatorStateInfo stateInfo)
         {
             return $"is ShowDice {stateInfo.IsName("ShowDice")} length {stateInfo.length} speed {stateInfo.speed} multiplier {stateInfo.speedMultiplier} normalizedTime {stateInfo.normalizedTime}";
@@ -119,87 +135,7 @@ namespace Monopoly.Client
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Board.MoveToPos(this.gameObject, new Coordinate { Row = Board.TestCoordinate.y, Col = Board.TestCoordinate.x });
-                OnDiceDown(new AnimationPb
-                {
-                    Name = "dice_down",
-                    Type = AnimationType.Default,
-                    Length = 1000,
-                    Extra = Google.Protobuf.WellKnownTypes.Any.Pack(new DiceDownExtra
-                    {
-                        Steps = 2,
-                        Player = new GamePlayer
-                        {
-                            Id = "TEST"
-                        }
-                    })
-                });
-            }
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                OnMove(new AnimationPb
-                {
-                    Name = "move",
-                    Type = AnimationType.Default,
-                    Length = 3000,
-                    Extra = Google.Protobuf.WellKnownTypes.Any.Pack(new MoveExtra
-                    {
-                        Player = new GamePlayer
-                        {
-                            Id = "TEST"
-                        },
-                        Path = {
-                            new Coordinate {Row = 0, Col = 1},
-                            new Coordinate { Row = 0, Col = 2},
-                            new Coordinate { Row = 0, Col = 3}
-                        }
-                    })
-                });
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                OnTeleportPickup(new AnimationPb
-                {
-                    Name = "teleport_pickup",
-                    Type = AnimationType.Default,
-                    Length = 300,
-                    Extra = Google.Protobuf.WellKnownTypes.Any.Pack(new TeleportPickupExtra
-                    {
-                        Player = new GamePlayer
-                        {
-                            Id = "TEST"
-                        },
-                        PickupLocation = new Coordinate
-                        {
-                            Row = 0,
-                            Col = 0
-                        }
-                    })
-                });
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                OnTeleportDropoff(new AnimationPb
-                {
-                    Name = "teleport_dropoff",
-                    Type = AnimationType.Default,
-                    Length = 300,
-                    Extra = Google.Protobuf.WellKnownTypes.Any.Pack(new TeleportDropoffExtra
-                    {
-                        Player = new GamePlayer
-                        {
-                            Id = "TEST"
-                        },
-                        DropoffLocation = new Coordinate
-                        {
-                            Row = 4,
-                            Col = 4
-                        }
-                    })
-                });
-            }
+
         }
 
         private void OnMove(AnimationPb anim)
@@ -268,16 +204,13 @@ namespace Monopoly.Client
             }
         }
 
-        private void OnTeleportDropoffFinished()
-        {
-            ResetSpeedMultiplier();
-            Animator.Play("Character Layer.Player_idle");
-        }
-
-        public void Initialize(GamePlayer player)
+        public Player Initialize(GamePlayer player, Board board)
         {
             GamePlayer = player;
             NameLabel.text = Name;
+            Board = board;
+            board.MoveToPos(this.gameObject, player.Pos);
+            return this;
         }
 
         public void FaceLeft()

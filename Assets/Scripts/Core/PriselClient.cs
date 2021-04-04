@@ -52,6 +52,29 @@ namespace Prisel.Common
         }
         public string ServerUrl { private get; set; } = "ws://echo.websocket.org";
 
+        public void AddPacketAction(string action, Action<Packet> callback)
+        {
+            OnActions.TryGetValue(action, out Action<Packet> callbacks);
+            callbacks += callback;
+            OnActions.Add(action, callbacks);
+        }
+
+        public void AddAction<T>(string action, Action<T, Packet> callback) where T : Google.Protobuf.IMessage, new()
+        {
+            AddPacketAction(action, (packet) =>
+            {
+                Debug.Log($"Handling {action}");
+                if (packet.Payload.ActionPayload.TryUnpack<T>(out var payload))
+                {
+                    callback.Invoke(payload, packet);
+                }
+            });
+        }
+
+        public void ClearAllActions()
+        {
+            OnActions.Clear();
+        }
         public async Task<PriselClient> Connect()
         {
             if (!IsConnected)
@@ -131,7 +154,14 @@ namespace Prisel.Common
 
             if (packet.IsAnyCustomAction())
             {
-                OnActions[packet.Action]?.Invoke(packet);
+                if (!OnActions.ContainsKey(packet.Action))
+                {
+                    Debug.LogWarning($"Unknown custom acton encountered {packet.Action}");
+                }
+                else
+                {
+                    OnActions[packet.Action]?.Invoke(packet);
+                }
                 return;
             }
 

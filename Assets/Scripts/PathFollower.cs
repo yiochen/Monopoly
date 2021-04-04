@@ -27,8 +27,8 @@ namespace Monopoly.Client
                 do
                 {
                     yield return null; // wait for next frame
-                    t += Time.deltaTime / durationPerTile;
-                    transform.position = Vector3.Lerp(prevPos, targetPos, t);
+                    t += Time.deltaTime;
+                    transform.position = Vector3.Lerp(prevPos, targetPos, t / durationPerTile);
                 } while (t < durationPerTile);
                 transform.position = targetPos;
                 prevPos = targetPos;

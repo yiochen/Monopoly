@@ -14,9 +14,6 @@ namespace Monopoly.Client
         [JsonProperty]
         List<PropertyObject> Properties;
 
-        [JsonProperty]
-        List<PlayerObject> Players;
-
         public Board Board;
 
         public int Height;
@@ -26,20 +23,17 @@ namespace Monopoly.Client
         {
             Tiles = GetAll<TileObject>();
             Properties = GetAll<PropertyObject>();
-            Players = GetAll<PlayerObject>();
         }
 
         protected override void ClearSerializedFields()
         {
             Tiles = null;
             Properties = null;
-            Players = null;
         }
 
-        public override void AddToWorld()
+        public void AddToWorld(Board board)
         {
-            Board = Object.FindObjectOfType<Board>();
-            Board.Render(this, Width, Height);
+            board.Render(this, Width, Height);
         }
     }
 }

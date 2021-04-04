@@ -1,5 +1,6 @@
 :root {
     --text-color-on-light: rgb(114, 84, 183);
+    --text-color-on-light-secondary: rgb(118, 118, 118);
     --text-color-on-dark: rgb(110, 81, 189);
     --text-color-on-dark-highlight: white;
     --background-dark: rgb(162, 131, 255);
@@ -171,4 +172,52 @@ Button {
 
 .action-button:active {
     background-image: url('/Assets/Textures/button-action-pressed.png');
+}
+
+.dialog-upper-container {
+    width: 100%;
+    padding-top: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    align-items: stretch;
+}
+
+.close-button {
+    background-image: url('/Assets/Textures/close-button.png');
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.close-button:hover {
+    background-image: url('/Assets/Textures/close-button-hovered.png');
+}
+
+.close-button:active {
+    background-image: url('/Assets/Textures/close-button-pressed.png');
+}
+
+.top-right-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.property-dialog-detail {
+    flex-direction: row;
+    -unity-font: url('/Assets/Fonts/SukuriburuBySoultyRagevin-Regular.ttf');
+    font-size: 32px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.property-dialog-detail-label {
+    margin-left: 2px;
+    color: var(--text-color-on-light);
+}
+
+.property-dialog-detail-value {
+    margin-left: 2px;
+    color: var(--text-color-on-light-secondary);
 }

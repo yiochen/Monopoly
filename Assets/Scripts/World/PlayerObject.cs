@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 namespace Monopoly.Client
 {
     public enum CharacterColor
@@ -10,21 +8,14 @@ namespace Monopoly.Client
         Blue = 3,
         Green = 4
     }
-    [JsonObject(MemberSerialization.OptIn)]
-    public class PlayerObject : GameObject
+
+    public static class PlayerColorExtension
     {
-        private int CharacterColorCount = System.Enum.GetNames(typeof(CharacterColor)).Length;
-        public override string Type
+        private static int CharacterColorCount = System.Enum.GetNames(typeof(CharacterColor)).Length;
+        public static CharacterColor ToColor(this Monopoly.Protobuf.GamePlayer gamePlayer)
         {
-            get => "game_player";
-        }
-
-        [JsonProperty]
-        public int Character = 0;
-
-        public CharacterColor ToColor()
-        {
-            return (CharacterColor)(Character % CharacterColorCount);
+            return (CharacterColor)(gamePlayer.Character % CharacterColorCount);
         }
     }
+
 }

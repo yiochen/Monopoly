@@ -28,11 +28,12 @@ namespace Monopoly.Client
         public List<Ref<TileObject>> Next { get; set; } = new List<Ref<TileObject>>();
 
         [JsonProperty]
-        public List<Ref<PropertyObject>> hasProperties { get; set; } = new List<Ref<PropertyObject>>();
-
-        [JsonProperty]
         public bool IsStart { get; set; } = false;
 
-        // chancePool and tileEffect are only for serverside use. So not included
+        [JsonProperty]
+        public List<ChanceInput> ChancePool = new List<ChanceInput>();
+        // tileEffects are only for serverside use. So not
+        // included
+
     }
 }
