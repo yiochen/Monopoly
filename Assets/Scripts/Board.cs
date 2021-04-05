@@ -30,11 +30,23 @@ namespace Monopoly.Client
         public Vector3 CharacterOffset = Vector3.zero;
         public Vector2Int TestCoordinate = Vector2Int.zero;
 
+        private static Board Instance;
+
+        public static Board current
+        {
+            get
+            {
+
+                return Instance;
+            }
+        }
+
         [SerializeField] private ChanceChest ChanceChestPrefab;
 
         private TilemapDict<ChanceChest> ChanceChests = new TilemapDict<ChanceChest>();
         void Awake()
         {
+            Instance = this;
             CellSize = AboveGround.cellSize;
             // Move the character right and up. The character is originally at
             // the anchor of tile, which is bottom left corner.
@@ -42,6 +54,11 @@ namespace Monopoly.Client
 
             EventBus.PropertyChange += OnPropertyChange;
 
+        }
+
+        void OnDestroy()
+        {
+            Instance = null;
         }
 
         private void OnPropertyChange(PropertyInfo propertyInfo, Player player)
@@ -56,6 +73,7 @@ namespace Monopoly.Client
             World = world;
             Width = width;
             Height = height;
+            EventBus.SetCameraPos?.Invoke(new Vector3(CellSize.x * width / 2, -CellSize.y * height / 2, 0));
 
             // go through all tiles and render
             foreach (TileObject tile in world.GetAll<TileObject>())
@@ -89,9 +107,14 @@ namespace Monopoly.Client
             gameObject.transform.position = GetCharacterPos(pos);
         }
 
+        public Vector3 GetWorldPos(Coordinate pos)
+        {
+            return AboveGround.CellToWorld(pos.ToTilemap());
+        }
+
         public Vector3 GetCharacterPos(Coordinate pos)
         {
-            return AboveGround.CellToWorld(pos.ToTilemap()) + CharacterOffset;
+            return GetWorldPos(pos) + CharacterOffset;
         }
     }
 

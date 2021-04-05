@@ -22,8 +22,8 @@ public class DicePad : MonoBehaviour
 
     void OnDiceRoll(AnimationPb animation)
     {
+        DiceImage.overrideSprite = null;
         Animator.PlayForLength("Dice_roll", animation.Length);
-        Debug.Log("Animation when dice rolling is " + Animator.GetCurrentAnimatorStateInfo(0).IsName("Dice_roll"));
     }
 
     // Start is called before the first frame update
@@ -50,13 +50,11 @@ public class DicePad : MonoBehaviour
     // Called when clicked
     public void OnClick()
     {
-        Debug.Log("Player rolled!");
         if (Rolled)
         {
             return;
         }
         Rolled = true;
-        // Animator.Play("Dice_roll");
         EventBus.DiceRolled?.Invoke();
     }
 
@@ -91,7 +89,6 @@ public class DicePad : MonoBehaviour
     {
         if (Value > 0 && Value <= 6)
         {
-            Debug.Log($"Setting dice number {Value}, the current animation is Dice_roll: {Animator.GetCurrentAnimatorStateInfo(0).IsName("Dice_roll")}");
             DiceImage.overrideSprite = PointSprite[Value - 1];
         }
     }

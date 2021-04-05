@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3839731426313780454}
   - component: {fileID: 8852757210608702348}
   - component: {fileID: 797708775083515886}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DicePad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 3181603006384870399}
   - component: {fileID: 2879560735794148496}
   - component: {fileID: 992358872732288125}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DiceContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

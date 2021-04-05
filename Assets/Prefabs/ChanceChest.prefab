@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 749749561825099649}
   - component: {fileID: 5702445621793946765}
   - component: {fileID: 5078332177031906204}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ChanceChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

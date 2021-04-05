@@ -112,7 +112,7 @@ namespace Monopoly.Client
         Player SetupPlayer(GamePlayer playerData)
         {
             var player = Instantiate(PlayerPrefab).GetComponent<Player>();
-            player.Initialize(playerData, Board).SetCamera(WorldCamera);
+            player.Initialize(playerData);
 
             return player;
         }

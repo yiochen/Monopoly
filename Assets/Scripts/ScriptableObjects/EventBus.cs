@@ -80,4 +80,8 @@ public class EventBus : UnityEngine.ScriptableObject
     /// </summary>
     public Action AutomaticallyDismissForeground;
 
+    public Action<CameraFollowable> StartCameraFollow;
+
+    public Action StopCameraFollow;
+    public Action<UnityEngine.Vector3> SetCameraPos;
 }

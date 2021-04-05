@@ -6,24 +6,32 @@ using AnimationPb = Monopoly.Protobuf.Animation;
 
 namespace Monopoly.Client
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, CameraFollowable
     {
-        [SerializeField] private Camera Camera;
+        // [SerializeField] private Camera Camera;
         [SerializeField] private Canvas Canvas;
         [SerializeField] private Text NameLabel;
         [SerializeField] private SpriteRenderer SpriteRenderer;
         [SerializeField] private AnimationDispatcher Anim;
         [SerializeField] private EventBus EventBus;
         [SerializeField] private Text DiceNumLabel;
-        [SerializeField] private Board Board;
+        private Board Board;
         private Animator Animator;
         private PathFollower PathFollower;
 
-        public Player SetCamera(Camera camera)
+        public Vector3 CameraAnchor
         {
-            Camera = camera;
-            return this;
+            get
+            {
+                return transform.position - Board.CharacterOffset;
+            }
         }
+
+        // public Player SetCamera(Camera camera)
+        // {
+        //     Camera = camera;
+        //     return this;
+        // }
 
         public string Name
         {
@@ -68,7 +76,7 @@ namespace Monopoly.Client
 
         void Awake()
         {
-            Canvas.worldCamera = Camera;
+            // Canvas.worldCamera = Camera;
             Animator = GetComponent<Animator>();
             PathFollower = GetComponent<PathFollower>();
         }
@@ -152,6 +160,7 @@ namespace Monopoly.Client
                         return;
                     }
                     Walk();
+                    EventBus.StartCameraFollow?.Invoke(this);
                     List<Vector3> path = new List<Vector3>();
                     foreach (var coor in extras.Path)
                     {
@@ -161,6 +170,7 @@ namespace Monopoly.Client
                     PathFollower.StartFollowing(path, (float)anim.Length / 1000 / extras.Path.Count, () =>
                     {
                         Stop();
+                        EventBus.StopCameraFollow?.Invoke();
                     }, (vec) =>
                     {
                         if (vec.x < 0)
@@ -204,12 +214,12 @@ namespace Monopoly.Client
             }
         }
 
-        public Player Initialize(GamePlayer player, Board board)
+        public Player Initialize(GamePlayer player)
         {
             GamePlayer = player;
             NameLabel.text = Name;
-            Board = board;
-            board.MoveToPos(this.gameObject, player.Pos);
+            Board = Board.current;
+            Board.MoveToPos(this.gameObject, player.Pos);
             return this;
         }
 

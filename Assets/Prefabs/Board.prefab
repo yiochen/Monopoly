@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2372261292084385079}
   - component: {fileID: 2372261292084385077}
   - component: {fileID: 2372261292084385078}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 2372261292314393938}
   - component: {fileID: 2372261292314393939}
   - component: {fileID: 2372261292314393937}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 2372261293863524247}
   - component: {fileID: 2372261293863524249}
   - component: {fileID: 2372261293863524248}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AboveGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
