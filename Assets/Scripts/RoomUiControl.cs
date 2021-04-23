@@ -38,14 +38,14 @@ public class RoomUiControl : MonoBehaviour
             if (leaveResponse.IsStatusOk())
             {
                 Client.State().ClearRoomState();
-                SceneManager.LoadScene("lobby", LoadSceneMode.Single);
+                SceneManager.LoadScene("login", LoadSceneMode.Single);
             }
             else
             {
                 Debug.LogError($"leaving room failed because {leaveResponse.StatusMessage()}");
+
             }
             LeavingInProgress = false;
-            SceneManager.LoadScene("login", LoadSceneMode.Single);
         }
     }
 
