@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9441427, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.9441427, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -228,14 +228,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ad420063f224581ba6f77a04ac8acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
   Canvas: {fileID: 4547807249146799697}
   NameLabel: {fileID: 7768759256665456309}
   SpriteRenderer: {fileID: 2688630520239701133}
   Anim: {fileID: 11400000, guid: be089b92a36284950800ea3370eca9dd, type: 2}
   EventBus: {fileID: 11400000, guid: 87442a3f54e294a62a4ebda33e09ad4b, type: 2}
   DiceNumLabel: {fileID: 8637407921044425469}
-  Board: {fileID: 0}
 --- !u!114 &1386959653061435567
 MonoBehaviour:
   m_ObjectHideFlags: 0

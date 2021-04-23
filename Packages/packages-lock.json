@@ -81,15 +81,8 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.textcore": {
-      "version": "1.0.0-preview.2",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.textmeshpro": {
-      "version": "3.0.1",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -113,23 +106,6 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "com.unity.ui": {
-      "version": "1.0.0-preview.14",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.uielementsnative": "1.0.0",
-        "com.unity.textcore": "1.0.0-preview.2"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ui.builder": {
-      "version": "1.0.0-preview.12",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "jillejr.newtonsoft.json-for-unity": {
       "version": "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm",
       "depth": 0,
@@ -149,7 +125,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "92b6b6cfc692e63f7c7e83a936a48ff0d6380435"
+      "hash": "e94a165c43f3b3800e6903d1a2366c1929b6b05d"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

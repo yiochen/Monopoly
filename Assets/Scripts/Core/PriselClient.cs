@@ -80,7 +80,7 @@ namespace Prisel.Common
             if (!IsConnected)
             {
                 // Create WebSocket instance
-                Client = new WebSocketClient(ServerUrl);
+                Client = WebSocketClient.Create(ServerUrl);
                 Debug.Log("Connecting to " + ServerUrl);
 
                 Client.OnMessage += OnMessage;

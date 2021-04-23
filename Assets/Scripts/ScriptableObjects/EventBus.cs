@@ -64,7 +64,9 @@ public class EventBus : UnityEngine.ScriptableObject
     /// <param>
     /// true for allowing touch to dismiss
     /// </param>
-    public Action<bool> DisplayBackground;
+    public Action<bool> DisplayRewardBackground;
+
+    public Action<bool> DisplayNormalBackground;
 
     /// <summary>
     /// Set if the background can be dismissed by touch. If false, if can only

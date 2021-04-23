@@ -38,5 +38,10 @@ public static class ClientStateExtension
         priselClient.SetState(state);
         return state;
     }
+
+    public static void ClearState(this PriselClient priselClient)
+    {
+        priselClient.SetState(new ClientState());
+    }
 }
 

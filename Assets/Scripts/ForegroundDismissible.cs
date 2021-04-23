@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for UI components that are shown in the foreground with dark
+/// background overlay. For example, ChanceCard.
+/// The UI component can be dismissed by tapping the background overlay.
+/// This class provides methods to override before showing the component and
+/// after the component is dismissed.
+/// </summary>
 public class ForegroundDismissible : MonoBehaviour
 {
     protected enum State
@@ -63,7 +70,7 @@ public class ForegroundDismissible : MonoBehaviour
             ItemState = State.SHOWING;
             gameObject.SetActive(true); // Set active before OnPrepare because OnPrepare might play animation.
             OnPrepare();
-            EventBus.DisplayBackground?.Invoke(false);
+            EventBus.DisplayRewardBackground?.Invoke(false);
             EventBus.DismissForeground += InternalOnDismissed;
 
         }

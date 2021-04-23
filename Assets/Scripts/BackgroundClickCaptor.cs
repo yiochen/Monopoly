@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class BackgroundClickCaptor : MonoBehaviour
 {
+    public enum BackgroundType
+    {
+        RewardBackground,
+        NormalBackground
+    }
     [SerializeField] private EventBus EventBus;
     [SerializeField] private AnimationDispatcher Anim;
+    [SerializeField] private BackgroundType Background;
 
     enum State
     {
@@ -19,8 +25,14 @@ public class BackgroundClickCaptor : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("start is called dispite active false");
-        EventBus.DisplayBackground += OnDisplayBackground;
+        if (Background == BackgroundType.RewardBackground)
+        {
+            EventBus.DisplayRewardBackground += OnDisplayBackground;
+        }
+        else
+        {
+            EventBus.DisplayNormalBackground += OnDisplayBackground;
+        }
         EventBus.AutomaticallyDismissForeground += OnAutomaticallyDismissed;
         EventBus.SetBackgroundTouchEnabled += OnSetBackgroundTouchEnabled;
         gameObject.SetActive(false);
@@ -28,7 +40,14 @@ public class BackgroundClickCaptor : MonoBehaviour
     }
     void OnDestroy()
     {
-        EventBus.DisplayBackground -= OnDisplayBackground;
+        if (Background == BackgroundType.RewardBackground)
+        {
+            EventBus.DisplayRewardBackground -= OnDisplayBackground;
+        }
+        else
+        {
+            EventBus.DisplayNormalBackground -= OnDisplayBackground;
+        }
         EventBus.AutomaticallyDismissForeground -= OnAutomaticallyDismissed;
         EventBus.SetBackgroundTouchEnabled -= OnSetBackgroundTouchEnabled;
     }
